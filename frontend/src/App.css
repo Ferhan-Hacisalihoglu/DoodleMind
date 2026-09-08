@@ -1080,6 +1080,34 @@
   border-bottom: 1px solid #f1f5f9;
 }
 
+.spec-row.primary-spec {
+  background: #f8faff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #e0e7ff;
+  margin-bottom: 4px;
+}
+
+.spec-row.primary-spec .spec-name {
+  font-weight: 700;
+  color: #1e1b4b;
+  font-size: 0.92rem;
+}
+
+.highlight-badge {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #4338ca;
+  background: #e0e7ff;
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+.highlight-badge.purple {
+  color: #6b21a8;
+  background: #f3e8ff;
+}
+
 .spec-name {
   color: #64748b;
 }

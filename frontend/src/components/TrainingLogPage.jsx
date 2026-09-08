@@ -62,16 +62,12 @@ export default function TrainingLogPage({ onBackToCanvas }) {
               <h2 className="model-name">MobileNetV2</h2>
               <span className="sub-tag">mobilenet_v2_tuberlin.pth (10.4 MB)</span>
             </div>
-            <div className="metric-circle">
-              <span className="circle-val">76.88%</span>
-              <span className="circle-lbl">Test Accuracy</span>
-            </div>
           </div>
 
           <div className="specs-table">
-            <div className="spec-row">
-              <span className="spec-name">Peak Test Accuracy:</span>
-              <span className="spec-value highlight">76.88% (Top-1)</span>
+            <div className="spec-row primary-spec">
+              <span className="spec-name">Test Accuracy (Top-1):</span>
+              <span className="spec-value highlight-badge">76.88%</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Training Accuracy:</span>
@@ -108,16 +104,12 @@ export default function TrainingLogPage({ onBackToCanvas }) {
               <h2 className="model-name">DenseNet121</h2>
               <span className="sub-tag">densenet121_tuberlin.pth (29.5 MB)</span>
             </div>
-            <div className="metric-circle purple">
-              <span className="circle-val">78.10%</span>
-              <span className="circle-lbl">Test Accuracy</span>
-            </div>
           </div>
 
           <div className="specs-table">
-            <div className="spec-row">
-              <span className="spec-name">Peak Test Accuracy:</span>
-              <span className="spec-value highlight">78.10% (Top-1)</span>
+            <div className="spec-row primary-spec">
+              <span className="spec-name">Test Accuracy (Top-1):</span>
+              <span className="spec-value highlight-badge purple">78.10%</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Training Accuracy:</span>
