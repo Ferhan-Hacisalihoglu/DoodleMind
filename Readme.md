@@ -57,7 +57,7 @@ The user draws on a canvas, and the AI model predicts the category in real time 
 ## Folder Layout
 ```
 DoodleMind/
-├── index.md                 # Project documentation & architecture overview
+├── Readme.md                 # Project documentation & architecture overview
 ├── docker-compose.yml       # Docker Compose setup for frontend container
 ├── requirements.txt         # Python dependencies for backend
 ├── run_backend.py           # Backend startup script (FastAPI on port 8000)
@@ -114,10 +114,28 @@ DoodleMind/
 
 ## Screenshots
 
-<img width="1919" height="1093" alt="Screenshot 2026-09-08 at 17-27-49 karala  — Neural Sketchpad (PyTorch   FastAPI)" src="https://github.com/user-attachments/assets/6f98aec2-d729-4e4a-852a-212033f04d18" />
-<img width="1919" height="994" alt="Screenshot 2026-09-08 at 17-27-57 karala  — Neural Sketchpad (PyTorch   FastAPI)" src="https://github.com/user-attachments/assets/44f519fc-caa9-49da-81ac-4da32d07d8d2" />
-<img width="1919" height="2168" alt="Screenshot 2026-09-08 at 17-46-30 karala  — Neural Sketchpad (PyTorch   FastAPI)" src="https://github.com/user-attachments/assets/fd70b17d-b9e6-44bb-9e1b-63d0db358c49" />
-<img width="1919" height="1537" alt="Screenshot 2026-09-08 at 17-46-37 karala  — Neural Sketchpad (PyTorch   FastAPI)" src="https://github.com/user-attachments/assets/ade5cc49-036b-45a5-97c9-04a155a73768" />
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <b>Interactive Canvas & Real-time Inference</b><br/>
+      <img src="https://github.com/user-attachments/assets/6f98aec2-d729-4e4a-852a-212033f04d18" alt="Interactive Canvas & Real-time Inference" />
+    </td>
+    <td width="50%" align="center">
+      <b>Sample Catalog & Predictions</b><br/>
+      <img src="https://github.com/user-attachments/assets/44f519fc-caa9-49da-81ac-4da32d07d8d2" alt="Sample Catalog & Predictions" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <b>Training Logs & Hardware Specs</b><br/>
+      <img src="https://github.com/user-attachments/assets/fd70b17d-b9e6-44bb-9e1b-63d0db358c49" alt="Training Logs & Hardware Specs" />
+    </td>
+    <td width="50%" align="center">
+      <b>Model Card & Preprocessing Pipeline</b><br/>
+      <img src="https://github.com/user-attachments/assets/ade5cc49-036b-45a5-97c9-04a155a73768" alt="Model Card & Preprocessing Pipeline" />
+    </td>
+  </tr>
+</table>
 
 
 ---
