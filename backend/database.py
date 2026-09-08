@@ -70,8 +70,8 @@ def init_db():
             if not os.path.isdir(cat_dir):
                 continue
             info = get_class_info(cat_name)
-            cat_tr = info["name_tr"]
-            cat_icon = info["icon"]
+            cat_tr = info.get("name_tr", info.get("display_name", cat_name))
+            cat_icon = info.get("icon", "✏️")
 
             for file_name in os.listdir(cat_dir):
                 if file_name.lower().endswith(('.png', '.jpg', '.jpeg')):

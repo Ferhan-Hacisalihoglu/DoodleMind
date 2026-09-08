@@ -1171,6 +1171,12 @@
   font-weight: 700;
 }
 
+.status-tag.warn {
+  background: #fef3c7;
+  color: #b45309;
+  font-weight: 700;
+}
+
 /* Augmentation Cards Grid */
 .aug-cards-grid {
   display: grid;

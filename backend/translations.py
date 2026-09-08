@@ -38,5 +38,7 @@ def get_class_info(class_name: str):
     return {
         "name_en": class_name,
         "display_name": display_name,
-        "name_tr": display_name # Backwards compatibility if needed
+        "name_tr": display_name, # Backwards compatibility if needed
+        "icon": "✏️"
     }
+

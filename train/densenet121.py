@@ -28,7 +28,7 @@ transform_train = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.RandomHorizontalFlip(p=0.5),
     transforms.RandomAffine(
-        degrees=15,
+        degrees=45,
         translate=(0.1, 0.1),
         scale=(0.85, 1.15),
         shear=5,
@@ -127,7 +127,13 @@ model.classifier = nn.Linear(num_ftrs, num_classes)
 for param in model.features.parameters():
     param.requires_grad = False
 
-# Unfreeze denseblock2, transition2, denseblock3, transition3, denseblock4 and norm5 for fine-tuning
+# Unfreeze denseblock1, transition1, denseblock2, transition2, denseblock3, transition3, denseblock4 and norm5 for fine-tuning
+for param in model.features.denseblock1.parameters():
+    param.requires_grad = True
+
+for param in model.features.transition1.parameters():
+    param.requires_grad = True
+
 for param in model.features.denseblock2.parameters():
     param.requires_grad = True
 
@@ -154,29 +160,78 @@ model = model.to(device)
 
 # --- early stopping callback ---
 class EarlyStopping:
-    def __init__(self, patience=5, min_delta=1e-3, checkpoint_path=None):
+    def __init__(self, patience=5, min_delta=1e-3, checkpoint_path=None, max_acc_gap=0.10, min_epochs=15):
         self.patience = patience
         self.min_delta = min_delta
+        self.checkpoint_path = checkpoint_path
+        self.max_acc_gap = max_acc_gap
+        self.min_epochs = min_epochs
         self.best_loss = np.inf
         self.counter = 0
+        self.overfit_counter = 0
+        self.current_epoch = 0
         self.early_stop = False
         self.best_model_wts = None
-        self.checkpoint_path = checkpoint_path
+        self.stop_reason = ""
 
-    def __call__(self, val_loss, model):
+    def __call__(self, val_loss, model, train_acc=None, val_acc=None, epoch=None):
+        if epoch is not None:
+            self.current_epoch = epoch
+        else:
+            self.current_epoch += 1
+
+        improved = False
         if val_loss < self.best_loss - self.min_delta:
             self.best_loss = val_loss
             self.counter = 0
             self.best_model_wts = copy.deepcopy(model.state_dict())
             if self.checkpoint_path:
                 torch.save(self.best_model_wts, self.checkpoint_path)
-            return False
+            improved = True
         else:
             self.counter += 1
-            if self.counter >= self.patience:
-                self.early_stop = True
-                return True
+
+        # Check overfitting gap
+        is_overfitting = False
+        t_acc, v_acc = None, None
+        if train_acc is not None and val_acc is not None:
+            t_acc = train_acc / 100.0 if train_acc > 1.0 else train_acc
+            v_acc = val_acc / 100.0 if val_acc > 1.0 else val_acc
+            if (t_acc - v_acc) > self.max_acc_gap:
+                self.overfit_counter += 1
+                is_overfitting = True
+                if self.overfit_counter < self.patience:
+                    print(
+                        f"  [Warning] Overfitting gap detected: Train Acc ({t_acc * 100:.2f}%) - "
+                        f"Val Acc ({v_acc * 100:.2f}%) = {(t_acc - v_acc) * 100:.2f}% > {self.max_acc_gap * 100:.0f}%. "
+                        f"Patience: {self.overfit_counter}/{self.patience}"
+                    )
+            else:
+                self.overfit_counter = 0
+
+        # Do not allow early stopping before reaching min_epochs
+        if self.current_epoch < self.min_epochs:
             return False
+
+        # Overfitting check: train_acc > val_acc + max_acc_gap for patience epochs
+        if is_overfitting and self.overfit_counter >= self.patience:
+            self.early_stop = True
+            self.stop_reason = (
+                f"Overfitting detected for {self.overfit_counter} consecutive epochs "
+                f"(patience: {self.patience}): "
+                f"Train Acc ({t_acc * 100:.2f}%) > "
+                f"Val Acc ({v_acc * 100:.2f}%) + {self.max_acc_gap * 100:.0f}%"
+            )
+            if self.best_model_wts is None:
+                self.best_model_wts = copy.deepcopy(model.state_dict())
+            return True
+
+        if not improved and self.counter >= self.patience:
+            self.early_stop = True
+            self.stop_reason = f"Patience of {self.patience} epochs reached without improvement"
+            return True
+
+        return False
 
 
 # --- loss, optimizer, lr scheduler & mixed precision scaler ---
@@ -190,8 +245,9 @@ scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0
 scaler = torch.amp.GradScaler('cuda', enabled=(device.type == 'cuda'))
 
 epochs = 60
+min_epochs = 10
 model_save_path = os.path.join(MODELS_DIR, "densenet121_tuberlin.pth")
-early_stopping = EarlyStopping(patience=6, min_delta=1e-3, checkpoint_path=model_save_path)
+early_stopping = EarlyStopping(patience=6, min_delta=1e-3, checkpoint_path=model_save_path, min_epochs=min_epochs)
 
 # --- training and validation loop ---
 if __name__ == '__main__':
@@ -256,8 +312,8 @@ if __name__ == '__main__':
               f"Train Loss: {epoch_train_loss:.5f} - Train Acc: {epoch_train_acc:.5f} | "
               f"Val Loss: {epoch_val_loss:.5f} - Val Acc: {epoch_val_acc:.5f}")
 
-        if early_stopping(epoch_val_loss, model):
-            print(f"Early stopping triggered at epoch {epoch+1}. Best Val Loss: {early_stopping.best_loss:.5f}")
+        if early_stopping(epoch_val_loss, model, train_acc=epoch_train_acc, val_acc=epoch_val_acc, epoch=epoch+1):
+            print(f"Early stopping triggered at epoch {epoch+1}. Reason: {early_stopping.stop_reason}. Best Val Loss: {early_stopping.best_loss:.5f}")
             break
 
     # Save final / best confirmation

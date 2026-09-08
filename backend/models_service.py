@@ -57,8 +57,8 @@ class ModelManager:
                 "name": "MobileNetV2",
                 "badge": "Fast & Lightweight (~1-2 ms)",
                 "params": "3.5M Parameters",
-                "val_accuracy": "76.88%",
-                "train_accuracy": "92.07%",
+                "val_accuracy": "72.40%",
+                "train_accuracy": "77.67%",
                 "model": m_mobilenet
             }
             print("[ModelManager] MobileNetV2 loaded successfully.")
@@ -78,8 +78,8 @@ class ModelManager:
                 "name": "DenseNet121",
                 "badge": "High Accuracy (~3-5 ms)",
                 "params": "8.0M Parameters",
-                "val_accuracy": "78.10%",
-                "train_accuracy": "91.22%",
+                "val_accuracy": "76.52%",
+                "train_accuracy": "88.09%",
                 "model": m_densenet
             }
             print("[ModelManager] DenseNet121 loaded successfully.")

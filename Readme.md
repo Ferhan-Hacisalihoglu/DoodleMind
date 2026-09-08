@@ -36,7 +36,7 @@ The user draws on a canvas, and the AI model predicts the category in real time 
 - Layout: one folder per class under `data/` (e.g. `data/cat/*.png`)
 - Split: 75% train (15,000 sketches) / 25% test (5,000 sketches) (stratified, `random_state=42`)
 - Input dimensions: 224 × 224 RGB, ImageNet normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-- Data augmentation: RandomHorizontalFlip, RandomAffine (±15°, translate 0.1, scale 0.85–1.15, fill 255), RandomPerspective (scale 0.2, p=0.5), ColorJitter (0.25), RandomErasing (p=0.25)
+- Data augmentation: RandomHorizontalFlip, RandomAffine (±45°, translate 0.1, scale 0.85–1.15, fill 255), RandomPerspective (scale 0.2, p=0.5), ColorJitter (0.25), RandomErasing (p=0.25)
 
 ---
 
@@ -44,12 +44,14 @@ The user draws on a canvas, and the AI model predicts the category in real time 
 1. **MobileNetV2** (`train/mobilenetv2.py`):
    - Checkpoint: `models/mobilenet_v2_tuberlin.pth` (10.4 MB)
    - Fine-tuning: Last 6 residual blocks + linear classification head (1280 → 250).
-   - Peak convergence (Epoch 47/60): **Train Acc: 92.07% (loss 0.2974) / Test Acc: 76.88% (loss 0.9054)**
+   - Peak convergence (Epoch 57/60): **Train Acc: 77.67% (loss 0.7740) / Test Acc: 72.40% (loss 1.0713)** (Peak Test Acc: 72.54% at Ep 56; Final Ep 60: Train Acc 78.13%)
+   - Completed all 60 epochs without overfitting triggers.
    - Inference latency on RTX 3060: **~1.1 - 1.8 ms**
 2. **DenseNet121** (`train/densenet121.py`):
    - Checkpoint: `models/densenet121_tuberlin.pth` (29.5 MB)
    - Fine-tuning: `denseblock2`, `transition2`, `denseblock3`, `transition3`, `denseblock4`, `norm5` + linear classifier (1024 → 250).
-   - Peak convergence (Epoch 23/60): **Train Acc: 91.22% (loss 0.3308) / Test Acc: 78.10% (loss 0.8219)**
+   - Peak convergence (Epoch 20/60, Early Stop Ep 24): **Best Val Loss: 0.8938 (Val Acc: 75.92%) / Peak Test Acc: 76.52% (Train Acc: 88.09%)**
+   - Early stopping triggered at Epoch 24 to guard against generalization gap.
    - Inference latency on RTX 3060: **~2.8 - 4.5 ms**
 
 ---

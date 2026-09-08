@@ -67,19 +67,23 @@ export default function TrainingLogPage({ onBackToCanvas }) {
           <div className="specs-table">
             <div className="spec-row primary-spec">
               <span className="spec-name">Test Accuracy (Top-1):</span>
-              <span className="spec-value highlight-badge">76.88%</span>
+              <span className="spec-value highlight-badge">72.40%</span>
+            </div>
+            <div className="spec-row">
+              <span className="spec-name">Peak Test Accuracy:</span>
+              <span className="spec-value">72.54% (Epoch 56)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Training Accuracy:</span>
-              <span className="spec-value">92.07%</span>
+              <span className="spec-value">77.67% (Final: 78.13%)</span>
             </div>
             <div className="spec-row">
-              <span className="spec-name">Final Validation Loss:</span>
-              <span className="spec-value">0.9054</span>
+              <span className="spec-name">Best Validation Loss:</span>
+              <span className="spec-value">1.0713 (Epoch 57)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Final Training Loss:</span>
-              <span className="spec-value">0.2974</span>
+              <span className="spec-value">0.7678 (Epoch 60)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Total Parameters:</span>
@@ -87,7 +91,7 @@ export default function TrainingLogPage({ onBackToCanvas }) {
             </div>
             <div className="spec-row">
               <span className="spec-name">Best Convergence Epoch:</span>
-              <span className="spec-value">Epoch 47 of 60</span>
+              <span className="spec-value">Epoch 57 of 60</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Inference Latency (RTX 3060):</span>
@@ -109,19 +113,23 @@ export default function TrainingLogPage({ onBackToCanvas }) {
           <div className="specs-table">
             <div className="spec-row primary-spec">
               <span className="spec-name">Test Accuracy (Top-1):</span>
-              <span className="spec-value highlight-badge purple">78.10%</span>
+              <span className="spec-value highlight-badge purple">76.52%</span>
+            </div>
+            <div className="spec-row">
+              <span className="spec-name">Best Val Loss Test Acc:</span>
+              <span className="spec-value">75.92% (Epoch 20)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Training Accuracy:</span>
-              <span className="spec-value">91.22%</span>
+              <span className="spec-value">88.09% (Epoch 20: 86.42%)</span>
             </div>
             <div className="spec-row">
-              <span className="spec-name">Final Validation Loss:</span>
-              <span className="spec-value">0.8219</span>
+              <span className="spec-name">Best Validation Loss:</span>
+              <span className="spec-value">0.8938 (Epoch 20)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Final Training Loss:</span>
-              <span className="spec-value">0.3308</span>
+              <span className="spec-value">0.4073 (Epoch 24)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Total Parameters:</span>
@@ -129,7 +137,7 @@ export default function TrainingLogPage({ onBackToCanvas }) {
             </div>
             <div className="spec-row">
               <span className="spec-name">Best Convergence Epoch:</span>
-              <span className="spec-value">Epoch 23 of 60</span>
+              <span className="spec-value">Epoch 20 (Early stopped Ep 24)</span>
             </div>
             <div className="spec-row">
               <span className="spec-name">Inference Latency (RTX 3060):</span>
@@ -143,7 +151,7 @@ export default function TrainingLogPage({ onBackToCanvas }) {
       <div className="tech-section">
         <h3 className="section-heading">Key Training Epoch Checkpoints</h3>
         <p className="section-text">
-          Progressive evaluation metrics recorded during the 60-epoch fine-tuning stage on the TU-Berlin stratified test split:
+          Progressive evaluation metrics recorded during actual fine-tuning stages on the TU-Berlin stratified test split:
         </p>
         <div className="table-wrapper">
           <table className="convergence-table">
@@ -159,59 +167,107 @@ export default function TrainingLogPage({ onBackToCanvas }) {
               </tr>
             </thead>
             <tbody>
+              {/* MobileNetV2 */}
               <tr>
                 <td><strong>MobileNetV2</strong></td>
                 <td>Epoch 1</td>
-                <td>3.4210</td>
-                <td>31.4%</td>
-                <td>2.1150</td>
-                <td>52.8%</td>
+                <td>4.8552</td>
+                <td>8.58%</td>
+                <td>3.8585</td>
+                <td>23.06%</td>
                 <td><span className="status-tag">Initial Warmup</span></td>
               </tr>
               <tr>
                 <td><strong>MobileNetV2</strong></td>
-                <td>Epoch 25</td>
-                <td>0.8920</td>
-                <td>78.2%</td>
-                <td>1.1402</td>
-                <td>71.4%</td>
-                <td><span className="status-tag">Unfrozen Fine-tuning</span></td>
+                <td>Epoch 15</td>
+                <td>1.5062</td>
+                <td>60.35%</td>
+                <td>1.3554</td>
+                <td>65.20%</td>
+                <td><span className="status-tag">Feature Learning</span></td>
+              </tr>
+              <tr>
+                <td><strong>MobileNetV2</strong></td>
+                <td>Epoch 30</td>
+                <td>1.1069</td>
+                <td>69.25%</td>
+                <td>1.1635</td>
+                <td>69.94%</td>
+                <td><span className="status-tag">Unfrozen Fine-Tuning</span></td>
+              </tr>
+              <tr>
+                <td><strong>MobileNetV2</strong></td>
+                <td>Epoch 45</td>
+                <td>0.8878</td>
+                <td>74.75%</td>
+                <td>1.1135</td>
+                <td>71.00%</td>
+                <td><span className="status-tag">High Precision</span></td>
               </tr>
               <tr className="highlight-row">
                 <td><strong>MobileNetV2</strong></td>
-                <td>Epoch 47</td>
-                <td>0.2974</td>
-                <td>92.07%</td>
-                <td>0.9054</td>
-                <td><strong>76.88%</strong></td>
-                <td><span className="status-tag best">★ Saved Best Weights</span></td>
+                <td>Epoch 57</td>
+                <td>0.7740</td>
+                <td>77.67%</td>
+                <td>1.0713</td>
+                <td><strong>72.40%</strong></td>
+                <td><span className="status-tag best">★ Saved Best Weights (Val Loss: 1.0713)</span></td>
               </tr>
+              <tr>
+                <td><strong>MobileNetV2</strong></td>
+                <td>Epoch 60</td>
+                <td>0.7678</td>
+                <td>78.13%</td>
+                <td>1.0784</td>
+                <td>71.72%</td>
+                <td><span className="status-tag">Completed (60/60 Epochs)</span></td>
+              </tr>
+
+              {/* DenseNet121 */}
               <tr>
                 <td><strong>DenseNet121</strong></td>
                 <td>Epoch 1</td>
-                <td>3.1520</td>
-                <td>38.1%</td>
-                <td>1.8904</td>
-                <td>58.6%</td>
+                <td>4.2704</td>
+                <td>17.50%</td>
+                <td>2.8376</td>
+                <td>39.06%</td>
                 <td><span className="status-tag">Initial Warmup</span></td>
               </tr>
               <tr>
                 <td><strong>DenseNet121</strong></td>
-                <td>Epoch 12</td>
-                <td>0.7410</td>
-                <td>82.6%</td>
-                <td>0.9950</td>
-                <td>74.2%</td>
-                <td><span className="status-tag">Deep Feature Fusion</span></td>
+                <td>Epoch 8</td>
+                <td>0.9211</td>
+                <td>74.82%</td>
+                <td>0.9946</td>
+                <td>73.44%</td>
+                <td><span className="status-tag">Dense Connectivity</span></td>
+              </tr>
+              <tr>
+                <td><strong>DenseNet121</strong></td>
+                <td>Epoch 14</td>
+                <td>0.6359</td>
+                <td>81.81%</td>
+                <td>0.9128</td>
+                <td>75.14%</td>
+                <td><span className="status-tag">Feature Reuse</span></td>
               </tr>
               <tr className="highlight-row">
                 <td><strong>DenseNet121</strong></td>
-                <td>Epoch 23</td>
-                <td>0.3308</td>
-                <td>91.22%</td>
-                <td>0.8219</td>
-                <td><strong>78.10%</strong></td>
-                <td><span className="status-tag best">★ Saved Best Weights</span></td>
+                <td>Epoch 20</td>
+                <td>0.4804</td>
+                <td>86.42%</td>
+                <td>0.8938</td>
+                <td><strong>75.92%</strong></td>
+                <td><span className="status-tag best">★ Saved Best Weights (Val Loss: 0.8938)</span></td>
+              </tr>
+              <tr>
+                <td><strong>DenseNet121</strong></td>
+                <td>Epoch 24</td>
+                <td>0.4073</td>
+                <td>88.09%</td>
+                <td>0.9111</td>
+                <td><strong>76.52%</strong></td>
+                <td><span className="status-tag warn">⏹ Early Stopped (Overfit Guard)</span></td>
               </tr>
             </tbody>
           </table>
@@ -254,7 +310,7 @@ export default function TrainingLogPage({ onBackToCanvas }) {
           <div className="aug-cards-grid">
             <div className="aug-card">
               <h4>RandomAffine</h4>
-              <p>Rotates by ±15°, translates by ±10%, and scales by 0.85–1.15 with white canvas padding.</p>
+              <p>Rotates by ±45°, translates by ±10%, and scales by 0.85–1.15 with white canvas padding.</p>
             </div>
             <div className="aug-card">
               <h4>RandomPerspective</h4>
