@@ -1,7 +1,27 @@
 # DoodleMind
+
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0-EE4C2C?logo=pytorch&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
+
 > Interactive Sketch-Recognition AI — PyTorch (MobileNetV2 & DenseNet121) + FastAPI (Backend) + Dockerized React (Frontend)
 
 The user draws on a canvas, and the AI model predicts the category in real time with confidence scores, bounding-box centering, and a 224 × 224 tensor input preview.
+
+---
+
+## Screenshots
+
+| Drawing Canvas | Live Prediction |
+|---|---|
+| ![Drawing canvas](docs/screenshots/canvas.png) | ![Live prediction with confidence scores](docs/screenshots/prediction.png) |
+
+| My Gallery | Training Log |
+|---|---|
+| ![Saved drawings gallery](docs/screenshots/gallery.png) | ![Training curves and hardware specs](docs/screenshots/training-log.png) |
 
 ---
 
