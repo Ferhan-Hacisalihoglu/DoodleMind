@@ -1,0 +1,31 @@
+# Data (excluded by user choice — large dataset, 250+ class folders)
+data/
+
+# Runtime artifacts
+backend/doodlemind.db
+backend/user_drawings/
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+.pytest_cache/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
