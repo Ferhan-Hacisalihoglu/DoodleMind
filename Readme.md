@@ -43,13 +43,13 @@ The user draws on a canvas, and the AI model predicts the category in real time 
 ## Models & Benchmark Results
 1. **MobileNetV2** (`train/mobilenetv2.py`):
    - Checkpoint: `models/mobilenet_v2_tuberlin.pth` (10.4 MB)
-   - Fine-tuning: Last 6 residual blocks + linear classification head (1280 → 250).
+   - Fine-tuning: Last 9 residual blocks + linear classification head (1280 → 250).
    - Peak convergence (Epoch 57/60): **Train Acc: 77.67% (loss 0.7740) / Test Acc: 72.40% (loss 1.0713)** (Peak Test Acc: 72.54% at Ep 56; Final Ep 60: Train Acc 78.13%)
    - Completed all 60 epochs without overfitting triggers.
    - Inference latency on RTX 3060: **~1.1 - 1.8 ms**
 2. **DenseNet121** (`train/densenet121.py`):
    - Checkpoint: `models/densenet121_tuberlin.pth` (29.5 MB)
-   - Fine-tuning: `denseblock2`, `transition2`, `denseblock3`, `transition3`, `denseblock4`, `norm5` + linear classifier (1024 → 250).
+   - Fine-tuning: `denseblock1`, `transition1`, `denseblock2`, `transition2`, `denseblock3`, `transition3`, `denseblock4`, `norm5` + linear classifier (1024 → 250).
    - Peak convergence (Epoch 20/60, Early Stop Ep 24): **Best Val Loss: 0.8938 (Val Acc: 75.92%) / Peak Test Acc: 76.52% (Train Acc: 88.09%)**
    - Early stopping triggered at Epoch 24 to guard against generalization gap.
    - Inference latency on RTX 3060: **~2.8 - 4.5 ms**
@@ -130,7 +130,7 @@ DoodleMind/
   <tr>
     <td width="50%" align="center">
       <b>Training Logs & Hardware Specs</b><br/>
-      <img src="https://github.com/user-attachments/assets/fd70b17d-b9e6-44bb-9e1b-63d0db358c49" alt="Training Logs & Hardware Specs" />
+      <img width="1919" height="2451" alt="Screenshot 2026-09-08 at 21-52-53 karala  — Neural Sketchpad (PyTorch   FastAPI)" src="https://github.com/user-attachments/assets/1f851567-94d0-4949-b914-fae4a41d3248" />
     </td>
     <td width="50%" align="center">
       <b>Model Card & Preprocessing Pipeline</b><br/>
