@@ -15,13 +15,7 @@ The user draws on a canvas, and the AI model predicts the category in real time 
 
 ## Screenshots
 
-| Drawing Canvas | Live Prediction |
-|---|---|
-| ![Drawing canvas](docs/screenshots/canvas.png) | ![Live prediction with confidence scores](docs/screenshots/prediction.png) |
 
-| My Gallery | Training Log |
-|---|---|
-| ![Saved drawings gallery](docs/screenshots/gallery.png) | ![Training curves and hardware specs](docs/screenshots/training-log.png) |
 
 ---
 
